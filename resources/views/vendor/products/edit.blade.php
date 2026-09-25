@@ -645,14 +645,14 @@
             </a>
 
             <a
-                href="{{ route('products.index') }}"
+                href="{{ route('vendor.products.index') }}"
                 class="nav-link"
             >
                 🛒 My Products
             </a>
 
             <a
-                href="{{ route('products.create') }}"
+                href="{{ route('vendor.products.create') }}"
                 class="nav-link"
             >
                 ＋ Add Product
@@ -727,7 +727,7 @@
             ========================== -->
 
             <form
-                action="{{ route('products.update', $product->id) }}"
+                action="{{ route('vendor.products.update', $product->id) }}"
                 method="POST"
                 enctype="multipart/form-data"
             >
@@ -936,7 +936,7 @@
                     </button>
 
                     <a
-                        href="{{ route('products.index') }}"
+                        href="{{ route('vendor.products.index') }}"
                         class="btn back"
                     >
                         ← Back to Products

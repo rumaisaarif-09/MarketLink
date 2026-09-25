@@ -826,7 +826,7 @@
 
 
             <a
-                href="{{ route('products.index') }}"
+                href="{{ route('vendor.products.index') }}"
                 class="nav-link active"
             >
                 <i class="fa-solid fa-box-open"></i>
@@ -835,7 +835,7 @@
 
 
             <a
-                href="{{ route('products.create') }}"
+                href="{{ route('vendor.products.create') }}"
                 class="nav-link"
             >
                 <i class="fa-solid fa-plus"></i>
@@ -1037,7 +1037,7 @@
 
 
                     <a
-                        href="{{ route('products.edit', $product->id) }}"
+                        href="{{ route('vendor.products.edit', $product->id) }}"
                         class="btn edit-btn"
                     >
 
@@ -1049,7 +1049,7 @@
 
 
                     <a
-                        href="{{ route('products.index') }}"
+                        href="{{ route('vendor.products.index') }}"
                         class="btn back-btn"
                     >
 
@@ -1061,7 +1061,7 @@
 
 
                     <form
-                        action="{{ route('products.destroy', $product->id) }}"
+                        action="{{ route('vendor.products.destroy', $product->id) }}"
                         method="POST"
                         style="display: inline;"
                         onsubmit="return confirm('Are you sure you want to delete this product?');"

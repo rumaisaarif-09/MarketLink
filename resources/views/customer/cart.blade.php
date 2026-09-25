@@ -3,387 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Cart - eGreen Basket</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+    <title>Shopping Cart - eGreen Basket</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f8f3;
-            color: #1f2d24;
-        }
-
-        .navbar {
-            height: 70px;
-            background: #ffffff;
-            border-bottom: 1px solid #dfe8df;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            color: #2e7d32;
-        }
-
-        .back {
-            text-decoration: none;
-            color: #2e7d32;
-            font-weight: 600;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 45px auto;
-            padding: 0 25px;
-        }
-
-        h1 {
-            margin-bottom: 25px;
-        }
-
-        .message {
-            background: #e8f5e9;
-            color: #2e7d32;
-            border: 1px solid #c8e6c9;
-            padding: 13px 16px;
-            border-radius: 9px;
-            margin-bottom: 20px;
-        }
-
-        .error {
-            background: #ffebee;
-            color: #c62828;
-            border: 1px solid #ffcdd2;
-            padding: 13px 16px;
-            border-radius: 9px;
-            margin-bottom: 20px;
-        }
-
-        .cart-layout {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 25px;
-        }
-
-        .cart-item,
-        .summary,
-        .empty {
-            background: #ffffff;
-            border: 1px solid #dfe8df;
-            border-radius: 16px;
-        }
-
-        .cart-item {
-            display: flex;
-            gap: 20px;
-            padding: 18px;
-            margin-bottom: 15px;
-            align-items: center;
-        }
-
-        .product-image {
-            width: 110px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-            background: #edf4ed;
-        }
-
-        .no-image {
-            width: 110px;
-            height: 100px;
-            border-radius: 10px;
-            background: #edf4ed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #2e7d32;
-            font-size: 30px;
-        }
-
-        .item-info {
-            flex: 1;
-        }
-
-        .item-info h3 {
-            margin-bottom: 8px;
-        }
-
-        .price {
-            color: #2e7d32;
-            font-weight: 700;
-        }
-
-        .quantity {
-            margin-top: 8px;
-            color: #68756d;
-            font-size: 14px;
-        }
-
-        .item-total {
-            min-width: 130px;
-            font-weight: 700;
-            font-size: 17px;
-            text-align: right;
-        }
-
-        .remove-btn {
-            margin-top: 10px;
-            border: none;
-            background: #ffebee;
-            color: #c62828;
-            padding: 8px 12px;
-            border-radius: 7px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .remove-btn:hover {
-            background: #ffcdd2;
-        }
-
-        .summary {
-            padding: 25px;
-            height: fit-content;
-        }
-
-        .summary h2 {
-            margin-bottom: 20px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
-        .grand-total {
-            border-top: 1px solid #dfe8df;
-            padding-top: 18px;
-            margin-top: 18px;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .checkout-btn {
-            display: block;
-            width: 100%;
-            border: none;
-            background: #2e7d32;
-            color: #ffffff;
-            padding: 14px;
-            border-radius: 9px;
-            margin-top: 20px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-        }
-
-        .checkout-btn:hover {
-            background: #256b29;
-        }
-
-        .empty {
-            padding: 70px 30px;
-            text-align: center;
-        }
-
-        .empty i {
-            font-size: 50px;
-            color: #2e7d32;
-            margin-bottom: 18px;
-        }
-
-        .empty h2 {
-            margin-bottom: 10px;
-        }
-
-        .shop-btn {
-            display: inline-block;
-            margin-top: 20px;
-            background: #2e7d32;
-            color: #ffffff;
-            padding: 12px 22px;
-            border-radius: 9px;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        @media (max-width: 800px) {
-            .cart-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .navbar {
-                padding: 0 20px;
-            }
-        }
-
-        @media (max-width: 550px) {
-            .cart-item {
-                flex-wrap: wrap;
-            }
-
-            .item-total {
-                width: 100%;
-                text-align: left;
-            }
-        }
+        body { background: #f3f7f2; color: #263328; }
+        .navbar, .panel { background: #fff; border: 1px solid #e0e8df; border-radius: 8px; }
+        .text-green { color: #47734b; }
+        .btn-green { color: #fff; background: #47734b; }
+        .btn-green:hover { color: #fff; background: #365c3a; }
+        .product-image { width: 72px; height: 72px; object-fit: cover; border-radius: 6px; }
     </style>
 </head>
-
 <body>
-
-<nav class="navbar">
-    <div class="logo">eGreen Basket</div>
-
-    <a href="{{ route('customer.dashboard') }}" class="back">
-        <i class="fa-solid fa-arrow-left"></i>
-        Continue Shopping
-    </a>
-</nav>
-
-<div class="container">
-
-    <h1>My Cart</h1>
-
-    @if(session('success'))
-        <div class="message">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="error">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if($cartItems->count() > 0)
-
-        <div class="cart-layout">
-
-            <div>
-                @foreach($cartItems as $item)
-
-                    <div class="cart-item">
-
-                        @if($item->product->image)
-                            <img
-                                src="{{ asset('storage/' . $item->product->image) }}"
-                                alt="{{ $item->product->name }}"
-                                class="product-image"
-                            >
-                        @else
-                            <div class="no-image">
-                                <i class="fa-solid fa-leaf"></i>
+    <nav class="navbar mx-auto mt-3 px-3 py-2" style="max-width: 1100px">
+        <a class="navbar-brand fw-bold text-green" href="{{ route('products.index') }}">eGreen Basket</a>
+        <a class="btn btn-outline-success btn-sm" href="{{ route('products.index') }}">Continue Shopping</a>
+    </nav>
+    <main class="container py-4" style="max-width: 1100px">
+        <h1 class="h3 mb-4">Shopping Cart</h1>
+        @if(session('success')) <div class="alert alert-success">{{ session('success') }}</div> @endif
+        @if(session('error')) <div class="alert alert-danger">{{ session('error') }}</div> @endif
+        @if($cartItems->isNotEmpty())
+            <div class="row g-4">
+                <section class="col-lg-8">
+                    @foreach($cartItems as $item)
+                        <div class="panel p-3 mb-3 d-flex align-items-center gap-3">
+                            @if($item['image'])
+                                <img class="product-image" src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}">
+                            @else
+                                <div class="product-image bg-light d-flex align-items-center justify-content-center"><i class="bi bi-leaf text-green"></i></div>
+                            @endif
+                            <div class="flex-grow-1">
+                                <h2 class="h6 mb-1">{{ $item['name'] }}</h2>
+                                <div class="text-muted">Rs. {{ number_format($item['price'], 2) }} x {{ $item['quantity'] }}</div>
                             </div>
-                        @endif
-
-                        <div class="item-info">
-
-                            <h3>{{ $item->product->name }}</h3>
-
-                            <div class="price">
-                                Rs. {{ number_format($item->product->price, 2) }}
-                            </div>
-
-                            <div class="quantity">
-                                Quantity: {{ $item->quantity }}
-                            </div>
-
-                        </div>
-
-                        <div class="item-total">
-
-                            <div>
-                                Rs. {{ number_format($item->product->price * $item->quantity, 2) }}
-                            </div>
-
-                            <form
-                                action="{{ route('customer.cart.remove', $item->id) }}"
-                                method="POST"
-                            >
+                            <strong class="text-green">Rs. {{ number_format($item['price'] * $item['quantity'], 2) }}</strong>
+                            <form action="{{ route('customer.cart.remove', $item['id']) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-
-                                <button type="submit" class="remove-btn">
-                                    <i class="fa-solid fa-trash"></i>
-                                    Remove
-                                </button>
+                                <button class="btn btn-outline-danger btn-sm" aria-label="Remove {{ $item['name'] }}"><i class="bi bi-trash"></i></button>
                             </form>
-
                         </div>
-
+                    @endforeach
+                </section>
+                <aside class="col-lg-4">
+                    <div class="panel p-3">
+                        <h2 class="h5">Order Summary</h2>
+                        <div class="d-flex justify-content-between border-top pt-3 mt-3 mb-3">
+                            <strong>Total</strong><strong class="text-green">Rs. {{ number_format($total, 2) }}</strong>
+                        </div>
+                        <a class="btn btn-green w-100" href="{{ route('customer.checkout') }}">Proceed to Checkout</a>
                     </div>
-
-                @endforeach
+                </aside>
             </div>
-
-            <div class="summary">
-
-                <h2>Order Summary</h2>
-
-                <div class="summary-row">
-                    <span>Items</span>
-                    <span>{{ $cartItems->sum('quantity') }}</span>
-                </div>
-
-                <div class="summary-row grand-total">
-                    <span>Total</span>
-                    <span>
-                        Rs. {{ number_format($total, 2) }}
-                    </span>
-                </div>
-
-                <a
-                    href="{{ route('customer.checkout') }}"
-                    class="checkout-btn"
-                >
-                    <i class="fa-solid fa-credit-card"></i>
-                    Proceed to Checkout
-                </a>
-
+        @else
+            <div class="panel text-center p-5">
+                <i class="bi bi-cart3 text-green fs-1"></i>
+                <h2 class="h5 mt-3">Your cart is empty</h2>
+                <a class="btn btn-green mt-2" href="{{ route('products.index') }}">Browse Products</a>
             </div>
-
-        </div>
-
-    @else
-
-        <div class="empty">
-
-            <i class="fa-solid fa-cart-shopping"></i>
-
-            <h2>Your Cart is Empty</h2>
-
-            <p>Add some fresh products to your cart.</p>
-
-            <a
-                href="{{ route('customer.dashboard') }}"
-                class="shop-btn"
-            >
-                Start Shopping
-            </a>
-
-        </div>
-
-    @endif
-
-</div>
-
+        @endif
+    </main>
 </body>
 </html>

@@ -928,7 +928,7 @@
 
 
             <a
-                href="{{ route('products.index') }}"
+                href="{{ route('vendor.products.index') }}"
                 class="nav-link active"
             >
                 <i class="fa-solid fa-box-open"></i>
@@ -937,7 +937,7 @@
 
 
             <a
-                href="{{ route('products.create') }}"
+                href="{{ route('vendor.products.create') }}"
                 class="nav-link"
             >
                 <i class="fa-solid fa-plus"></i>
@@ -986,7 +986,7 @@
 
 
             <a
-                href="{{ route('products.create') }}"
+                href="{{ route('vendor.products.create') }}"
                 class="add-btn"
             >
                 <i class="fa-solid fa-plus"></i>
@@ -1117,7 +1117,7 @@
                         <div class="actions">
 
                             <a
-                                href="{{ route('products.show', $product->id) }}"
+                                href="{{ route('vendor.products.show', $product->id) }}"
                                 class="view"
                             >
                                 <i class="fa-solid fa-eye"></i>
@@ -1126,7 +1126,7 @@
 
 
                             <a
-                                href="{{ route('products.edit', $product->id) }}"
+                                href="{{ route('vendor.products.edit', $product->id) }}"
                                 class="edit"
                             >
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -1135,7 +1135,7 @@
 
 
                             <form
-                                action="{{ route('products.destroy', $product->id) }}"
+                                action="{{ route('vendor.products.destroy', $product->id) }}"
                                 method="POST"
                                 style="display: contents;"
                             >
@@ -1280,7 +1280,7 @@
                         <div class="actions">
 
                             <a
-                                href="{{ route('products.show', $product->id) }}"
+                                href="{{ route('vendor.products.show', $product->id) }}"
                                 class="view"
                             >
                                 <i class="fa-solid fa-eye"></i>
@@ -1289,7 +1289,7 @@
 
 
                             <a
-                                href="{{ route('products.edit', $product->id) }}"
+                                href="{{ route('vendor.products.edit', $product->id) }}"
                                 class="edit"
                             >
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -1298,7 +1298,7 @@
 
 
                             <form
-                                action="{{ route('products.destroy', $product->id) }}"
+                                action="{{ route('vendor.products.destroy', $product->id) }}"
                                 method="POST"
                                 style="display: contents;"
                             >
@@ -1443,7 +1443,7 @@
                         <div class="actions">
 
                             <a
-                                href="{{ route('products.show', $product->id) }}"
+                                href="{{ route('vendor.products.show', $product->id) }}"
                                 class="view"
                             >
                                 <i class="fa-solid fa-eye"></i>
@@ -1452,7 +1452,7 @@
 
 
                             <a
-                                href="{{ route('products.edit', $product->id) }}"
+                                href="{{ route('vendor.products.edit', $product->id) }}"
                                 class="edit"
                             >
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -1461,7 +1461,7 @@
 
 
                             <form
-                                action="{{ route('products.destroy', $product->id) }}"
+                                action="{{ route('vendor.products.destroy', $product->id) }}"
                                 method="POST"
                                 style="display: contents;"
                             >
@@ -1606,7 +1606,7 @@
                         <div class="actions">
 
                             <a
-                                href="{{ route('products.show', $product->id) }}"
+                                href="{{ route('vendor.products.show', $product->id) }}"
                                 class="view"
                             >
                                 <i class="fa-solid fa-eye"></i>
@@ -1615,7 +1615,7 @@
 
 
                             <a
-                                href="{{ route('products.edit', $product->id) }}"
+                                href="{{ route('vendor.products.edit', $product->id) }}"
                                 class="edit"
                             >
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -1624,7 +1624,7 @@
 
 
                             <form
-                                action="{{ route('products.destroy', $product->id) }}"
+                                action="{{ route('vendor.products.destroy', $product->id) }}"
                                 method="POST"
                                 style="display: contents;"
                             >

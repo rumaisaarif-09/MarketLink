@@ -792,7 +792,7 @@
 
 
             <a
-                href="{{ route('products.index') }}"
+                href="{{ route('vendor.products.index') }}"
                 class="nav-link"
             >
                 My Products
@@ -800,7 +800,7 @@
 
 
             <a
-                href="{{ route('products.create') }}"
+                href="{{ route('vendor.products.create') }}"
                 class="nav-link"
             >
                 Add Product
@@ -945,7 +945,7 @@
 
 
             <a
-                href="{{ route('products.create') }}"
+                href="{{ route('vendor.products.create') }}"
                 class="btn btn-primary"
             >
 
@@ -957,7 +957,7 @@
 
 
             <a
-                href="{{ route('products.index') }}"
+                href="{{ route('vendor.products.index') }}"
                 class="btn btn-secondary"
             >
 
@@ -1136,7 +1136,7 @@
 
 
                     <a
-                        href="{{ route('products.create') }}"
+                        href="{{ route('vendor.products.create') }}"
                         class="btn btn-primary"
                     >
 

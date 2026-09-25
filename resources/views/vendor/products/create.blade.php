@@ -766,7 +766,7 @@
 
 
             <a
-                href="{{ route('products.index') }}"
+                href="{{ route('vendor.products.index') }}"
                 class="nav-link"
             >
                 <i class="fa-solid fa-box-open"></i>
@@ -775,7 +775,7 @@
 
 
             <a
-                href="{{ route('products.create') }}"
+                href="{{ route('vendor.products.create') }}"
                 class="nav-link active"
             >
                 <i class="fa-solid fa-plus"></i>
@@ -867,7 +867,7 @@
             ========================== -->
 
             <form
-                action="{{ route('products.store') }}"
+                action="{{ route('vendor.products.store') }}"
                 method="POST"
                 enctype="multipart/form-data"
             >
@@ -1084,7 +1084,7 @@
 
 
                     <a
-                        href="{{ route('products.index') }}"
+                        href="{{ route('vendor.products.index') }}"
                         class="btn back"
                     >
 
