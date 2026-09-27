@@ -383,11 +383,7 @@
 <body>
 
     <nav class="navbar">
-        <a href="{{ route('admin.dashboard') }}" class="brand">
-            <div class="brand-name">
-                eGreen <span>Basket</span>
-            </div>
-        </a>
+        <x-brand-logo :href="route('admin.dashboard')" class="brand" />
 
         <div class="nav-right">
             <a href="{{ route('admin.dashboard') }}" class="nav-link">

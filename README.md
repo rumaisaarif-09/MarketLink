@@ -7,6 +7,59 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## MarketLink Setup
+
+Run the database migrations and start the local application:
+
+```sh
+php artisan migrate --seed
+php artisan serve
+```
+
+### Default demo accounts
+
+The app seeds these ready-to-use accounts for testing:
+
+| Role | Email | Password | Login URL |
+| --- | --- | --- | --- |
+| Admin | admin@example.com | 123456789 | `/admin/login` or `/login/admin` |
+| Vendor | vendor@example.com | 12345678 | `/login/vendor` |
+| Customer | customer@example.com | 12345678 | `/login/customer` |
+
+> The public login selector only shows Customer and Vendor. Admin access is intentionally kept separate and must be opened directly via the admin login URL.
+
+Users can also register as buyers or vendors. To create the first administrator without exposing admin registration publicly, register an account first and promote it from the terminal:
+
+```sh
+php artisan marketlink:promote-admin admin@example.com
+```
+
+Sign in with the seeded or promoted account to manage users, product approvals, orders, reviews, and reports.
+
+### How to use the app
+
+1. Start the app:
+
+```sh
+php artisan serve
+```
+
+2. Open the homepage and choose the relevant portal:
+   - Customer portal: `/login/customer`
+   - Vendor portal: `/login/vendor`
+   - Admin portal: `/admin/login`
+
+3. Use the default seeded accounts above to test the full flow.
+   - Customer can browse products and place orders.
+   - Vendor can manage products and view orders.
+   - Admin can approve products, manage users, and review reports.
+
+4. If you want to promote a newly registered user to admin manually, run:
+
+```sh
+php artisan marketlink:promote-admin your-email@example.com
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

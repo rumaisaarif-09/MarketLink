@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -14,7 +15,7 @@ class ProductController extends Controller
      */
     public function dashboard()
     {
-        $products = Product::where('user_id', 1)
+        $products = Product::where('user_id', Auth::id())
             ->with('category')
             ->latest()
             ->get();
@@ -36,7 +37,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::where('user_id', 1)
+        $products = Product::where('user_id', Auth::id())
             ->with('category')
             ->latest()
             ->get();
@@ -79,7 +80,7 @@ class ProductController extends Controller
         }
 
         Product::create([
-            'user_id' => 1,
+            'user_id' => Auth::id(),
             'category_id' => $request->category_id,
             'name' => $request->name,
             'description' => $request->description,
@@ -99,7 +100,7 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $product = Product::where('user_id', 1)
+        $product = Product::where('user_id', Auth::id())
             ->with('category')
             ->findOrFail($id);
 
@@ -111,7 +112,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $product = Product::where('user_id', 1)
+        $product = Product::where('user_id', Auth::id())
             ->findOrFail($id);
 
         $categories = Category::all();
@@ -127,7 +128,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $product = Product::where('user_id', 1)
+        $product = Product::where('user_id', Auth::id())
             ->findOrFail($id);
 
         $request->validate([
@@ -170,7 +171,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        $product = Product::where('user_id', 1)
+        $product = Product::where('user_id', Auth::id())
             ->findOrFail($id);
 
         // Product ke saath uski image bhi delete karna

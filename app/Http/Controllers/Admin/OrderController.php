@@ -18,7 +18,7 @@ class OrderController
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|string'
+            'status' => ['required', 'in:pending,processing,shipped,delivered,completed,cancelled'],
         ]);
 
         $order = Order::findOrFail($id);

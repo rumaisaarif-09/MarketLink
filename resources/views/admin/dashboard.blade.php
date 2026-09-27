@@ -20,33 +20,37 @@
         }
 
         :root {
-            --bg-main: #f3f7f2;
+            --bg-main: #eefaf1;
             --bg-card: #ffffff;
-            --bg-soft: #e9f0e7;
-            --text-main: #263328;
-            --text-secondary: #68746a;
-            --primary: #588157;
-            --primary-dark: #456a47;
-            --primary-light: #dce8d9;
-            --border: #d5dfd2;
-            --shadow: 0 8px 25px rgba(53, 78, 55, 0.08);
+            --bg-soft: #edf7ee;
+            --text-main: #183327;
+            --text-secondary: #58715d;
+            --primary: #2f8f57;
+            --primary-dark: #1f6d44;
+            --primary-light: #def6e6;
+            --primary-soft: #bcebcf;
+            --border: #d7e9dc;
+            --shadow: 0 14px 32px rgba(26, 92, 54, 0.10);
         }
 
         body.dark {
-            --bg-main: #000000;
-            --bg-card: #111111;
-            --bg-soft: #181818;
-            --text-main: #f5f5f5;
-            --text-secondary: #a7a7a7;
-            --primary: #588157;
-            --primary-dark: #456a47;
-            --primary-light: #263b29;
-            --border: #292929;
-            --shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+            --bg-main: #071a13;
+            --bg-card: #0f251a;
+            --bg-soft: #122d21;
+            --text-main: #edf9f1;
+            --text-secondary: #b7d4c1;
+            --primary: #4cd07a;
+            --primary-dark: #2ca861;
+            --primary-light: #173b2a;
+            --primary-soft: #1b4e39;
+            --border: #214a39;
+            --shadow: 0 16px 36px rgba(0, 0, 0, 0.38);
         }
 
         body {
-            background: var(--bg-main);
+            background:
+                radial-gradient(circle at top left, rgba(47, 143, 87, 0.12), transparent 24%),
+                linear-gradient(180deg, var(--bg-main) 0%, #f8fbf9 100%);
             color: var(--text-main);
             min-height: 100vh;
             transition: background 0.35s ease, color 0.35s ease;
@@ -61,9 +65,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: var(--bg-card);
+            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(223,246,230,0.94));
+            backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--border);
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 8px 24px rgba(25, 84, 53, 0.08);
         }
 
         .brand {
@@ -94,7 +99,7 @@
             text-decoration: none;
             color: var(--text-secondary);
             padding: 10px 13px;
-            border-radius: 9px;
+            border-radius: 10px;
             font-size: 14px;
             font-weight: 700;
             transition: 0.3s ease;
@@ -102,25 +107,27 @@
 
         .nav-link:hover,
         .nav-link.active {
-            color: var(--primary);
-            background: var(--primary-light);
+            color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-light), rgba(188, 235, 207, 0.8));
             transform: translateY(-2px);
+            box-shadow: inset 0 0 0 1px rgba(47, 143, 87, 0.06);
         }
 
         .theme-btn {
             border: 1px solid var(--border);
-            background: var(--bg-soft);
+            background: linear-gradient(135deg, var(--bg-soft), #ffffff);
             color: var(--text-main);
             padding: 9px 13px;
-            border-radius: 9px;
+            border-radius: 10px;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
             transition: 0.3s ease;
+            box-shadow: 0 10px 18px rgba(47, 143, 87, 0.06);
         }
 
         .theme-btn:hover {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: #ffffff;
             transform: translateY(-2px);
         }
@@ -144,11 +151,13 @@
 
         .welcome h1 span {
             color: var(--primary);
+            text-shadow: 0 8px 18px rgba(47, 143, 87, 0.18);
         }
 
         .welcome p {
             color: var(--text-secondary);
             font-size: 15px;
+            max-width: 640px;
         }
 
         .cards {
@@ -159,30 +168,43 @@
         }
 
         .card {
-            background: var(--bg-card);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, #ffffff 0%, #f7fcf8 100%);
             border: 1px solid var(--border);
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 24px;
             box-shadow: var(--shadow);
             transition: 0.3s ease;
         }
 
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto auto 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), rgba(47, 143, 87, 0.15));
+        }
+
         .card:hover {
             transform: translateY(-6px);
-            border-color: var(--primary);
+            border-color: rgba(47, 143, 87, 0.45);
+            box-shadow: 0 16px 35px rgba(26, 88, 52, 0.14);
         }
 
         .card-icon {
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 17px;
-            border-radius: 11px;
-            background: var(--primary-light);
-            color: var(--primary);
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-soft));
+            color: var(--primary-dark);
             font-size: 18px;
+            box-shadow: inset 0 0 0 1px rgba(47, 143, 87, 0.08);
         }
 
         .card h3 {
@@ -204,11 +226,21 @@
         }
 
         .panel {
-            background: var(--bg-card);
+            position: relative;
+            background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(241,249,244,0.96));
             border: 1px solid var(--border);
-            border-radius: 18px;
+            border-radius: 22px;
             padding: 25px;
             box-shadow: var(--shadow);
+        }
+
+        .panel::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), rgba(47, 143, 87, 0.2));
+            border-radius: 22px 22px 0 0;
         }
 
         .panel-header {
@@ -258,16 +290,18 @@
             padding: 15px;
             text-decoration: none;
             color: var(--text-main);
-            background: var(--bg-soft);
+            background: linear-gradient(135deg, var(--bg-soft), #ffffff);
             border: 1px solid var(--border);
             border-radius: 12px;
             transition: 0.3s ease;
+            box-shadow: 0 10px 18px rgba(47, 143, 87, 0.04);
         }
 
         .admin-link:hover {
-            border-color: var(--primary);
-            color: var(--primary);
+            border-color: rgba(47, 143, 87, 0.35);
+            color: var(--primary-dark);
             transform: translateY(-3px);
+            background: linear-gradient(135deg, var(--primary-light), #ebf8ef);
         }
 
         .admin-link i {
@@ -288,8 +322,9 @@
             align-items: center;
             gap: 13px;
             padding: 13px;
-            background: var(--bg-soft);
+            background: linear-gradient(135deg, var(--bg-soft), #ffffff);
             border-radius: 11px;
+            border: 1px solid rgba(47, 143, 87, 0.05);
         }
 
         .activity-icon {
@@ -373,9 +408,7 @@
     <nav class="navbar">
 
       
-<a href="{{ route('admin.dashboard') }}" class="brand">
-    <img src="{{ asset('images/MarketLink_logo_transparent.png') }}" alt="MarketLink Logo">
-</a>
+<x-brand-logo :href="route('admin.dashboard')" class="brand" />
 
 
 
@@ -396,6 +429,13 @@
             <a href="{{ route('admin.farmers') }}" class="nav-link">
                 Farmers
             </a>
+
+            <a href="{{ route('admin.reviews.index') }}" class="nav-link">Reviews</a>
+
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button class="theme-btn" type="submit">Sign Out</button>
+            </form>
 
             <button type="button" class="theme-btn" id="themeToggle">
                 Dark Mode

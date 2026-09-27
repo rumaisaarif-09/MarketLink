@@ -15,7 +15,7 @@
 </head>
 <body>
     <nav class="navbar bg-white border-bottom px-3 py-3">
-        <div class="container"><a class="navbar-brand fw-bold text-green" href="{{ route('products.index') }}">eGreen Basket</a><a href="{{ route('customer.cart') }}">Back to Cart</a></div>
+        <div class="container"><x-brand-logo :href="route('products.index')" class="navbar-brand" /><a href="{{ route('customer.cart') }}">Back to Cart</a></div>
     </nav>
     <main class="container py-4" style="max-width: 1000px">
         <h1 class="h3 mb-4">Checkout</h1>
@@ -40,8 +40,10 @@
                     @csrf
                     <h2 class="h5 mb-3">Delivery Details</h2>
                     <div class="mb-3"><label class="form-label" for="phone">Phone Number</label><input class="form-control" id="phone" name="phone" value="{{ old('phone') }}" required></div>
-                    <div class="mb-3"><label class="form-label" for="address">Shipping Address</label><textarea class="form-control" id="address" name="address" rows="4" required>{{ old('address') }}</textarea></div>
-                    <p class="text-muted">Payment: Cash on Delivery</p>
+                    <div class="mb-3"><label class="form-label" for="address">Pickup Address</label><textarea class="form-control" id="address" name="address" rows="4" required>{{ old('address') }}</textarea></div>
+                    <div class="mb-3"><label class="form-label" for="pickup_date">Pickup Date</label><input class="form-control" id="pickup_date" name="pickup_date" type="date" value="{{ old('pickup_date') }}" min="{{ date('Y-m-d') }}" required></div>
+                    <div class="mb-3"><label class="form-label" for="pickup_time">Pickup Time</label><input class="form-control" id="pickup_time" name="pickup_time" type="time" value="{{ old('pickup_time') }}" required></div>
+                    <p class="text-muted">Payment: Cash on pickup. No online payment gateway.</p>
                     <button class="btn btn-green w-100" type="submit" @disabled($cartItems->isEmpty())>Place Order</button>
                 </form>
             </section>

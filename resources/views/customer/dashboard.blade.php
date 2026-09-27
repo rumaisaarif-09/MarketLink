@@ -20,7 +20,9 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #f6faf5;
+            background:
+                radial-gradient(circle at top left, rgba(47, 143, 87, 0.12), transparent 22%),
+                linear-gradient(180deg, #eefaf1 0%, #f8fbf9 100%);
             color: #18241c;
             transition: 0.3s ease;
         }
@@ -28,8 +30,8 @@
         .navbar {
             height: 76px;
             padding: 0 55px;
-            background: rgba(255, 255, 255, 0.96);
-            border-bottom: 1px solid #e2ebe2;
+            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(223,246,230,0.94));
+            border-bottom: 1px solid #d9e9dc;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -37,6 +39,7 @@
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(12px);
+            box-shadow: 0 8px 24px rgba(25, 84, 53, 0.08);
         }
 
   
@@ -82,13 +85,17 @@
             color: #536158;
             text-decoration: none;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             transition: 0.25s ease;
+            padding: 10px 13px;
+            border-radius: 10px;
         }
 
         .nav-link:hover,
         .nav-link.active {
-            color: #2e7d32;
+            color: #1f6d44;
+            background: linear-gradient(135deg, #def6e6, rgba(188, 235, 207, 0.8));
+            box-shadow: inset 0 0 0 1px rgba(47, 143, 87, 0.06);
         }
 
         .cart-link {
@@ -97,33 +104,38 @@
             gap: 8px;
             padding: 10px 15px;
             border-radius: 10px;
-            background: #edf8ed;
-            color: #287a31;
+            background: linear-gradient(135deg, #def6e6, #eefaf2);
+            color: #1f6d44;
             text-decoration: none;
             font-size: 14px;
             font-weight: 700;
             transition: 0.25s ease;
+            box-shadow: 0 10px 18px rgba(47, 143, 87, 0.06);
         }
 
         .cart-link:hover {
-            background: #dff1df;
+            background: linear-gradient(135deg, #2f8f57, #1f6d44);
+            color: #ffffff;
             transform: translateY(-2px);
         }
 
         .theme-btn {
             border: 1px solid #dce6dc;
-            background: #ffffff;
+            background: linear-gradient(135deg, #edf7ee, #ffffff);
             color: #425247;
             padding: 9px 13px;
             border-radius: 10px;
             cursor: pointer;
             font-size: 13px;
             transition: 0.25s ease;
+            box-shadow: 0 10px 18px rgba(47, 143, 87, 0.06);
         }
 
         .theme-btn:hover {
-            border-color: #2e7d32;
-            color: #2e7d32;
+            background: linear-gradient(135deg, #2f8f57, #1f6d44);
+            border-color: transparent;
+            color: #ffffff;
+            transform: translateY(-2px);
         }
 
         .container {
@@ -231,24 +243,25 @@
         .products-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
+            gap: 20px;
         }
 
         .product-card {
-            background: #ffffff;
-            border: 1px solid #e1eae1;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fcf9 100%);
+            border: 1px solid #dfeae1;
             border-radius: 20px;
             overflow: hidden;
             text-decoration: none;
             color: inherit;
             transition: 0.3s ease;
             position: relative;
+            box-shadow: 0 14px 32px rgba(26, 92, 54, 0.10);
         }
 
         .product-card:hover {
-            transform: translateY(-7px);
-            border-color: #c8ddc9;
-            box-shadow: 0 18px 40px rgba(36, 85, 42, 0.12);
+            transform: translateY(-6px);
+            border-color: rgba(47, 143, 87, 0.38);
+            box-shadow: 0 18px 38px rgba(26, 92, 54, 0.14);
         }
 
         .image-wrapper {
@@ -284,13 +297,14 @@
             top: 14px;
             left: 14px;
             background: rgba(255,255,255,0.93);
-            color: #287331;
+            color: #1f6d44;
             padding: 7px 10px;
             border-radius: 8px;
             font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            box-shadow: 0 8px 14px rgba(26, 92, 54, 0.08);
         }
 
         .product-content {
@@ -318,8 +332,20 @@
             padding-top: 15px;
         }
 
+        .product-detail-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 0 17px;
+            padding-top: 12px;
+            border-top: 1px solid #edf1ed;
+            color: #1f6d44;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
         .price {
-            color: #24752c;
+            color: #1f6d44;
             font-size: 18px;
             font-weight: 800;
         }
@@ -356,8 +382,9 @@
         }
 
         body.dark .navbar {
-            background: rgba(8, 8, 8, 0.96);
-            border-color: #242424;
+            background: linear-gradient(135deg, rgba(10, 20, 15, 0.97), rgba(18, 44, 33, 0.96));
+            border-color: #214a39;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
         }
 
         body.dark .logo {
@@ -396,12 +423,12 @@
 
         body.dark .product-card,
         body.dark .empty {
-            background: #0b0b0b;
-            border-color: #252525;
+            background: linear-gradient(180deg, #0d1d15 0%, #0b120e 100%);
+            border-color: #214a39;
         }
 
         body.dark .product-card:hover {
-            border-color: #3d5b42;
+            border-color: rgba(76, 208, 122, 0.4);
             box-shadow: 0 18px 40px rgba(0,0,0,0.35);
         }
 
@@ -500,9 +527,7 @@
 
 <nav class="navbar">
 
-<a href="{{ route('customer.dashboard') }}" class="brand">
-    <img src="{{ asset('images/MarketLink_logo_transparent.png') }}" alt="MarketLink Logo">
-</a>
+<x-brand-logo :href="route('customer.dashboard')" class="brand" />
 
 
     <div class="nav-links">
@@ -523,6 +548,11 @@
             <i class="fa-solid fa-cart-shopping"></i>
             Cart
         </a>
+
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button class="theme-btn" type="submit">Sign Out</button>
+        </form>
 
     </div>
 
@@ -620,6 +650,11 @@
                                 {{ $product->stock }} in stock
                             </span>
 
+                        </div>
+
+                        <div class="product-detail-link">
+                            View product
+                            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                         </div>
 
                     </div>

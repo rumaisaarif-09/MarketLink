@@ -243,6 +243,86 @@
             color: var(--text-secondary) !important;
         }
 
+        .action-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 210px;
+        }
+
+        .role-form,
+        .access-form {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+        }
+
+        .role-select {
+            min-width: 102px;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 700;
+            outline: none;
+        }
+
+        .mini-btn {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-soft);
+            color: var(--text-main);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .mini-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 14px rgba(73, 102, 77, 0.08);
+        }
+
+        .mini-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-color: var(--primary-dark);
+            color: #ffffff;
+            box-shadow: 0 8px 16px rgba(41, 102, 61, 0.16);
+        }
+
+        .mini-btn.primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            box-shadow: 0 12px 20px rgba(41, 102, 61, 0.2);
+        }
+
+        .mini-btn.alert {
+            background: #fff7f7;
+            color: #a13a3a;
+            border-color: #f1d7d7;
+        }
+
+        body.dark .mini-btn.alert {
+            background: #241818;
+            border-color: #452e2e;
+            color: #f2b0b0;
+        }
+
+        .current-admin {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
         .empty-users {
             text-align: center;
             padding: 50px 20px;
@@ -289,11 +369,7 @@
 
     <nav class="navbar">
 
-        <a href="{{ route('admin.dashboard') }}" class="brand">
-            <div class="brand-name">
-                eGreen <span>Basket</span>
-            </div>
-        </a>
+        <x-brand-logo :href="route('admin.dashboard')" class="brand" />
 
         <div class="nav-right">
 
@@ -308,6 +384,8 @@
             <a href="{{ route('admin.users') }}" class="nav-link active">
                 Users
             </a>
+
+            <a href="{{ route('admin.reviews.index') }}" class="nav-link">Reviews</a>
 
             <button type="button" class="theme-btn" id="themeToggle">
                 Dark Mode
@@ -332,6 +410,9 @@
         </section>
 
         <section class="users-card">
+
+            @if(session('success')) <p class="user-count">{{ session('success') }}</p> @endif
+            @if(session('error')) <p class="user-count">{{ session('error') }}</p> @endif
 
             <div class="card-header">
 
@@ -360,6 +441,9 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Role</th>
+                            <th>Access</th>
+                            <th>Actions</th>
                             <th>Registered Date</th>
                         </tr>
                     </thead>
@@ -380,6 +464,38 @@
 
                                 <td class="user-email">
                                     {{ $user->email }}
+                                </td>
+
+                                <td>{{ ucfirst($user->role) }}</td>
+                                <td>{{ $user->is_active ? 'Active' : 'Disabled' }}</td>
+                                <td>
+                                    @if($user->id !== auth()->id())
+                                        <div class="action-stack">
+                                            <form action="{{ route('admin.users.role', $user) }}" method="POST" class="role-form">
+                                                @csrf
+                                                @method('PATCH')
+                                                <select name="role" class="role-select" aria-label="Role for {{ $user->name }}">
+                                                    @foreach(['buyer', 'vendor', 'admin'] as $role)
+                                                        <option value="{{ $role }}" @selected($user->role === $role)>{{ ucfirst($role) }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <button type="submit" class="mini-btn primary">Save</button>
+                                            </form>
+
+                                            <form action="{{ route('admin.users.access', $user) }}" method="POST" class="access-form">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="mini-btn {{ $user->is_active ? 'alert' : '' }}">
+                                                    {{ $user->is_active ? 'Disable' : 'Enable' }}
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        <span class="current-admin">
+                                            <i class="fa-solid fa-user-shield"></i>
+                                            Current admin
+                                        </span>
+                                    @endif
                                 </td>
 
                                 <td class="date">

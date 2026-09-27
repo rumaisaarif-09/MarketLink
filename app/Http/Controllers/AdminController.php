@@ -11,7 +11,7 @@ class AdminController extends Controller
     {
         $totalUsers = User::count();
 
-        $totalFarmers = 0;
+        $totalFarmers = User::whereIn('role', ['vendor', 'farmer'])->count();
 
         $totalProducts = Product::count();
 

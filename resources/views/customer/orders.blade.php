@@ -162,7 +162,7 @@
 <body>
 
 <nav class="navbar">
-    <div class="logo">eGreen Basket</div>
+    <x-brand-logo :href="route('customer.dashboard')" class="logo" />
 
     <a href="{{ route('customer.dashboard') }}" class="back">
         <i class="fa-solid fa-arrow-left"></i>
@@ -173,6 +173,10 @@
 <div class="container">
 
     <h1>My Orders</h1>
+
+    @if(session('success'))
+        <div class="order-card">{{ session('success') }}</div>
+    @endif
 
     @if($orders->count() > 0)
 
@@ -186,7 +190,7 @@
                     </div>
 
                     <div class="status">
-                        {{ $order->status }}
+                        {{ str_replace('_', ' ', ucfirst($order->status)) }}
                     </div>
                 </div>
 
@@ -227,6 +231,24 @@
                         </strong>
                     </div>
 
+                    <div class="info-box">
+                        <span>Delivery Tracking</span>
+                        <strong>{{ str_replace('_', ' ', ucfirst($order->status)) }}</strong>
+                    </div>
+
+                </div>
+
+                <div style="margin-top:20px;">
+                    <strong>Items</strong>
+                    @foreach($order->items as $item)
+                        <div style="display:flex; justify-content:space-between; gap:12px; padding:10px 0; border-bottom:1px solid #dfe8df;">
+                            <span>{{ $item->product->name ?? 'Product' }} x {{ $item->quantity }}</span>
+                            <span>Rs. {{ number_format($item->price * $item->quantity, 2) }}</span>
+                            @if(in_array($order->status, ['delivered', 'completed']) && $item->product)
+                                <a href="{{ route('customer.product', $item->product_id) }}">Review product</a>
+                            @endif
+                        </div>
+                    @endforeach
                 </div>
 
             </div>

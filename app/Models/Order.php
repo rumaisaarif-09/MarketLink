@@ -18,6 +18,8 @@ class Order extends Model
         'total_price',
         'address',
         'shipping_address',
+        'pickup_date',
+        'pickup_time',
         'phone',
         'payment_method',
         'status',
@@ -31,5 +33,10 @@ class Order extends Model
     public function items()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function canBeCancelled(): bool
+    {
+        return ! in_array($this->status, ['completed', 'cancelled'], true);
     }
 }

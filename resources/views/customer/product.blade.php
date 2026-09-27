@@ -152,7 +152,7 @@
 <body>
 
 <nav class="navbar">
-    <div class="logo">eGreen Basket</div>
+    <x-brand-logo :href="route('customer.dashboard')" class="logo" />
 
     <a href="{{ route('customer.dashboard') }}" class="back">
         <i class="fa-solid fa-arrow-left"></i>
@@ -206,15 +206,48 @@
 
             <form action="{{ route('customer.cart.add', $product->id) }}" method="POST">
                 @csrf
-
-                <button type="submit" class="cart-btn">
+                <label for="quantity">Quantity</label>
+                <input id="quantity" name="quantity" type="number" value="1" min="1" max="{{ $product->stock }}" required>
+                <button type="submit" class="cart-btn" @disabled($product->stock < 1)>
                     <i class="fa-solid fa-cart-shopping"></i>
-                    Add to Cart
+                    {{ $product->stock > 0 ? 'Add to Cart' : 'Out of Stock' }}
                 </button>
             </form>
         </div>
 
     </div>
+
+    @if(session('error'))
+        <div class="success">{{ session('error') }}</div>
+    @endif
+
+    <section class="product-detail" style="display:block; margin-top:24px;">
+        <h2>Customer Reviews</h2>
+        @if($canReview)
+            <form action="{{ route('customer.reviews.store', $product->id) }}" method="POST" style="margin:20px 0;">
+                @csrf
+                <label for="rating">Rating</label>
+                <select id="rating" name="rating" required>
+                    @foreach(range(5, 1) as $rating)
+                        <option value="{{ $rating }}">{{ $rating }} / 5</option>
+                    @endforeach
+                </select>
+                <label for="comment">Review</label>
+                <textarea id="comment" name="comment" rows="3" maxlength="2000" placeholder="Share your experience"></textarea>
+                <button class="cart-btn" type="submit">Submit Review</button>
+            </form>
+        @endif
+        @forelse($reviews as $review)
+            <article style="border-top:1px solid #dfe8df; padding:16px 0;">
+                <strong>{{ $review->user->name }}</strong>
+                <span>{{ $review->rating }} / 5</span>
+                @if($review->comment)<p>{{ $review->comment }}</p>@endif
+                @if($review->vendor_response)<p><strong>Vendor response:</strong> {{ $review->vendor_response }}</p>@endif
+            </article>
+        @empty
+            <p>No reviews yet.</p>
+        @endforelse
+    </section>
 
 </div>
 

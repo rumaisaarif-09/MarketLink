@@ -33,23 +33,24 @@
         ========================= */
 
         :root {
-            --bg-main: #f3f7f2;
+            --bg-main: #eefaf1;
             --bg-card: #ffffff;
-            --bg-soft: #e9f0e7;
+            --bg-soft: #edf7ee;
 
-            --text-main: #263328;
-            --text-secondary: #68746a;
+            --text-main: #183327;
+            --text-secondary: #58715d;
 
-            --primary: #588157;
-            --primary-dark: #456a47;
-            --primary-light: #dce8d9;
+            --primary: #2f8f57;
+            --primary-dark: #1f6d44;
+            --primary-light: #def6e6;
+            --primary-soft: #bcebcf;
 
-            --border: #d5dfd2;
+            --border: #d7e9dc;
 
             --danger: #dc3545;
 
             --shadow:
-                0 10px 30px rgba(53, 78, 55, 0.08);
+                0 14px 32px rgba(26, 92, 54, 0.10);
         }
 
 
@@ -58,23 +59,24 @@
         ========================= */
 
         body.dark {
-            --bg-main: #000000;
-            --bg-card: #111111;
-            --bg-soft: #181818;
+            --bg-main: #071a13;
+            --bg-card: #0f251a;
+            --bg-soft: #122d21;
 
-            --text-main: #f5f5f5;
-            --text-secondary: #a7a7a7;
+            --text-main: #edf9f1;
+            --text-secondary: #b7d4c1;
 
-            --primary: #588157;
-            --primary-dark: #456a47;
-            --primary-light: #263b29;
+            --primary: #4cd07a;
+            --primary-dark: #2ca861;
+            --primary-light: #173b2a;
+            --primary-soft: #1b4e39;
 
-            --border: #292929;
+            --border: #214a39;
 
             --danger: #ef5350;
 
             --shadow:
-                0 12px 35px rgba(0, 0, 0, 0.45);
+                0 16px 36px rgba(0, 0, 0, 0.38);
         }
 
 
@@ -83,7 +85,9 @@
         ========================= */
 
         body {
-            background: var(--bg-main);
+            background:
+                radial-gradient(circle at top left, rgba(47, 143, 87, 0.12), transparent 24%),
+                linear-gradient(180deg, var(--bg-main) 0%, #f8fbf9 100%);
 
             color: var(--text-main);
 
@@ -116,13 +120,14 @@
 
             align-items: center;
 
-            background: var(--bg-card);
+            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(223,246,230,0.94));
+            backdrop-filter: blur(8px);
 
             border-bottom:
                 1px solid var(--border);
 
             box-shadow:
-                0 4px 20px rgba(0, 0, 0, 0.05);
+                0 8px 24px rgba(25, 84, 53, 0.08);
 
             transition: 0.35s ease;
         }
@@ -199,7 +204,7 @@
 
             padding: 10px 13px;
 
-            border-radius: 9px;
+            border-radius: 10px;
 
             font-size: 14px;
 
@@ -216,11 +221,12 @@
 
         .nav-link:hover,
         .nav-link.active {
-            color: var(--primary);
+            color: var(--primary-dark);
 
-            background: var(--primary-light);
+            background: linear-gradient(135deg, var(--primary-light), rgba(188, 235, 207, 0.8));
 
             transform: translateY(-2px);
+            box-shadow: inset 0 0 0 1px rgba(47, 143, 87, 0.06);
         }
 
 
@@ -231,13 +237,13 @@
         .theme-btn {
             border: 1px solid var(--border);
 
-            background: var(--bg-soft);
+            background: linear-gradient(135deg, var(--bg-soft), #ffffff);
 
             color: var(--text-main);
 
             padding: 9px 13px;
 
-            border-radius: 9px;
+            border-radius: 10px;
 
             font-size: 13px;
 
@@ -246,6 +252,7 @@
             cursor: pointer;
 
             transition: 0.3s ease;
+            box-shadow: 0 10px 18px rgba(47, 143, 87, 0.06);
         }
 
 
@@ -255,7 +262,7 @@
 
 
         .theme-btn:hover {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
 
             color: #ffffff;
 
@@ -737,21 +744,7 @@
 
     <nav class="navbar">
 
-        <a
-            href="{{ route('vendor.dashboard') }}"
-            class="brand"
-        >
-
-            <div class="brand-icon">
-                <i class="fa-solid fa-leaf"></i>
-            </div>
-
-
-            <div class="brand-name">
-                eGreen <span>Basket</span>
-            </div>
-
-        </a>
+        <x-brand-logo :href="route('vendor.dashboard')" class="brand" />
 
 
         <div class="nav-right">

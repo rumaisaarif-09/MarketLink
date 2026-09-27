@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eGreen Basket</title>
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
@@ -46,7 +49,7 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-custom px-4 py-3 mb-4">
-        <a class="navbar-brand fw-bold fs-4" style="color: var(--primary-green);" href="/">eGreen Basket</a>
+        <x-brand-logo :href="route('home')" class="navbar-brand" />
         <div class="ms-auto">
             <a href="/products" class="btn btn-outline-success btn-sm me-2">Products</a>
             <a href="/cart" class="btn btn-outline-success btn-sm me-2">Cart</a>

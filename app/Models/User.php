@@ -14,6 +14,10 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $attributes = [
+        'is_active' => true,
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,6 +28,12 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'is_active',
+        'market_name',
+        'market_day',
+        'market_address',
+        'market_latitude',
+        'market_longitude',
     ];
 
     /**
@@ -46,6 +56,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
         ];
     }
 
@@ -57,5 +68,15 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
 }

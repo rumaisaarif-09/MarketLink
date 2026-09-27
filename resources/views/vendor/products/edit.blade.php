@@ -619,20 +619,7 @@
 
     <nav class="navbar">
 
-        <a
-            href="{{ route('vendor.dashboard') }}"
-            class="brand"
-        >
-
-            <div class="brand-icon">
-                🌱
-            </div>
-
-            <div class="brand-name">
-                eGreen <span>Basket</span>
-            </div>
-
-        </a>
+        <x-brand-logo :href="route('vendor.dashboard')" class="brand" />
 
 
         <div class="nav-right">

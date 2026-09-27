@@ -9,25 +9,28 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        // Required food categories database mein add hongi
-        Category::create([
-            'name' => 'Vegetables',
+        Category::firstOrCreate([
             'slug' => 'vegetables',
+        ], [
+            'name' => 'Vegetables',
         ]);
 
-        Category::create([
-            'name' => 'Fruits',
+        Category::firstOrCreate([
             'slug' => 'fruits',
+        ], [
+            'name' => 'Fruits',
         ]);
 
-        Category::create([
-            'name' => 'Grains',
+        Category::firstOrCreate([
             'slug' => 'grains',
+        ], [
+            'name' => 'Grains',
         ]);
 
-        Category::create([
-            'name' => 'Organic',
+        Category::firstOrCreate([
             'slug' => 'organic',
+        ], [
+            'name' => 'Organic',
         ]);
     }
 }

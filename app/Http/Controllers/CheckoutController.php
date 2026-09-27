@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class CheckoutController
 {
@@ -14,72 +16,92 @@ class CheckoutController
     {
         $cart = session()->get('cart', []);
         if (empty($cart)) {
-            return redirect()->route('products.index')->with('error', 'Aapka cart khali hai!');
+            return redirect()->route('products.index')->with('error', 'Your cart is empty.');
         }
 
-        $total = 0;
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
-        }
+        $cartItems = collect($cart)->map(function ($item, $id) {
+            return [
+                'id' => $id,
+                'name' => $item['name'],
+                'quantity' => $item['quantity'],
+                'price' => $item['price'],
+                'image' => $item['image'] ?? null,
+            ];
+        })->values();
+        $total = $cartItems->sum(fn ($item) => $item['price'] * $item['quantity']);
 
-        return view('checkout', compact('cart', 'total'));
+        return view('customer.checkout', compact('cartItems', 'total'));
     }
 
     public function placeOrder(Request $request)
     {
-        $request->validate([
-            'phone'   => 'required',
-            'address' => 'required',
+        $validated = $request->validate([
+            'phone' => ['required', 'string', 'max:30'],
+            'address' => ['required', 'string', 'max:500'],
+            'pickup_date' => ['nullable', 'date', 'after_or_equal:today'],
+            'pickup_time' => ['nullable', 'string', 'max:50'],
         ]);
 
         $cart = session()->get('cart', []);
         if (empty($cart)) {
-            return redirect()->route('products.index')->with('error', 'Cart khali hai!');
+            return redirect()->route('customer.cart')->with('error', 'Your cart is empty.');
         }
 
-        $totalPrice = 0;
-        foreach ($cart as $item) {
-            $totalPrice += $item['price'] * $item['quantity'];
-        }
+        DB::transaction(function () use ($cart, $validated): void {
+            $products = Product::whereIn('id', array_keys($cart))
+                ->where('status', 'approved')
+                ->lockForUpdate()
+                ->get()
+                ->keyBy('id');
 
-        // Check karte hain ki database table mein address ya shipping_address mein se konsa column exist karta hai
-        $orderData = [
-            'user_id'        => Auth::id() ?? null,
-            'payment_method' => 'COD',
-            'phone'          => $request->phone,
-            'status'         => 'pending',
-        ];
+            if ($products->count() !== count($cart)) {
+                throw ValidationException::withMessages([
+                    'cart' => 'One or more products are no longer available.',
+                ]);
+            }
 
-        // Total price column dynamically set kar rahe hain
-        if (Schema::hasColumn('orders', 'total_amount')) {
-            $orderData['total_amount'] = $totalPrice;
-        } elseif (Schema::hasColumn('orders', 'grand_total')) {
-            $orderData['grand_total'] = $totalPrice;
-        } else {
-            $orderData['total_price'] = $totalPrice;
-        }
+            $total = 0;
+            foreach ($cart as $productId => $item) {
+                $quantity = filter_var($item['quantity'] ?? null, FILTER_VALIDATE_INT);
+                $product = $products->get($productId);
 
-        // Address column dynamically handle kar rahe hain
-        if (Schema::hasColumn('orders', 'address')) {
-            $orderData['address'] = $request->address;
-        } elseif (Schema::hasColumn('orders', 'shipping_address')) {
-            $orderData['shipping_address'] = $request->address;
-        }
+                if (! $quantity || $quantity < 1 || $quantity > $product->stock) {
+                    throw ValidationException::withMessages([
+                        'cart' => "The requested quantity for {$product->name} is unavailable.",
+                    ]);
+                }
 
-        $order = Order::create($orderData);
+                $total += $product->price * $quantity;
+            }
 
-        foreach ($cart as $productId => $item) {
-            OrderItem::create([
-                'order_id'   => $order->id,
-                'product_id' => $productId,
-                'quantity'   => $item['quantity'],
-                'price'      => $item['price'],
+            $order = Order::create([
+                'user_id' => Auth::id(),
+                'total_amount' => $total,
+                'payment_method' => 'COD',
+                'status' => 'pending',
+                'phone' => $validated['phone'],
+                'shipping_address' => $validated['address'],
+                'pickup_date' => $validated['pickup_date'] ?? null,
+                'pickup_time' => $validated['pickup_time'] ?? null,
             ]);
-        }
 
-        // Clear Cart Session
+            foreach ($cart as $productId => $item) {
+                $product = $products->get($productId);
+                $quantity = (int) $item['quantity'];
+
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $product->id,
+                    'quantity' => $quantity,
+                    'price' => $product->price,
+                ]);
+
+                $product->decrement('stock', $quantity);
+            }
+        });
+
         session()->forget('cart');
 
-        return redirect()->route('products.index')->with('success', 'Order Place Ho Gaya Hai!');
+        return redirect()->route('customer.orders')->with('success', 'Order placed successfully.');
     }
 }

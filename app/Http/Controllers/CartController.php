@@ -29,15 +29,25 @@ class CartController extends Controller
 
     public function addToCart(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
+        $validated = $request->validate([
+            'quantity' => ['sometimes', 'integer', 'min:1'],
+        ]);
+
+        $product = Product::where('status', 'approved')->findOrFail($id);
         $cart = session()->get('cart', []);
+        $quantity = (int) ($validated['quantity'] ?? 1);
+        $existingQuantity = (int) ($cart[$id]['quantity'] ?? 0);
+
+        if ($existingQuantity + $quantity > $product->stock) {
+            return redirect()->back()->with('error', 'Requested quantity exceeds available stock.');
+        }
 
         if (isset($cart[$id])) {
-            $cart[$id]['quantity'] += $request->input('quantity', 1);
+            $cart[$id]['quantity'] += $quantity;
         } else {
             $cart[$id] = [
                 'name' => $product->name,
-                'quantity' => $request->input('quantity', 1),
+                'quantity' => $quantity,
                 'price' => $product->price,
                 'image' => $product->image,
             ];

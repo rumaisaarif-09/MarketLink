@@ -13,7 +13,7 @@
 </head>
 <body>
     <nav class="navbar bg-white border-bottom px-3 py-3">
-        <div class="container-fluid"><a class="navbar-brand fw-bold text-green" href="{{ route('admin.dashboard') }}">eGreen Basket Admin</a><a class="btn btn-outline-success btn-sm" href="{{ route('products.index') }}">View Storefront</a></div>
+        <div class="container-fluid"><x-brand-logo :href="route('admin.dashboard')" class="navbar-brand" /><a class="btn btn-outline-success btn-sm" href="{{ route('products.index') }}">View Storefront</a></div>
     </nav>
     <main class="container-fluid p-4">
         <h1 class="h3 mb-4">Customer Orders</h1>

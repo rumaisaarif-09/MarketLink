@@ -178,7 +178,7 @@
 <body>
 
 <nav class="navbar">
-    <div class="logo">eGreen Basket</div>
+    <x-brand-logo :href="route('admin.dashboard')" class="logo" />
 
     <div class="nav-links">
         <a href="{{ route('admin.dashboard') }}" class="nav-link">Dashboard</a>
